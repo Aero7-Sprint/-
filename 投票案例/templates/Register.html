@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        div[style*="color: red;"] {
+            margin-bottom: 10px;
+            color: red;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 显示错误提示 -->
+    {% if error %}
+    <div style="color: red;">{{ error }}</div>
+    {% endif %}
+
+    <form action="/Register" method="post">
+        <div>
+            <label for="root">用户名</label>
+            <input type="text" id="root" name="root" required>
+        </div>
+        <div>
+            <label for="psw">密码</label>
+            <input type="password" id="psw" name="psw" required>
+        </div>
+        <div>
+            <label for="check_psw">确认密码</label>
+            <input type="password" id="check_psw" name="check_psw" required>
+        </div>
+        <button type="submit">注册</button>
+    </form>
+
+    <!-- 显示密码强度提示 -->
+    <p>{{ Tip }}</p>
+</body>
+
+</html>

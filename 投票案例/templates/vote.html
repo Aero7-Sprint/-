@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>电影投票</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* 容器样式 */
+       .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 电影卡片样式 */
+       .movie-card {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 电影封面图片样式 */
+       .movie-poster {
+            width: 120px;
+            height: 180px;
+            margin-right: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+       .movie-poster img {
+            width: 120px;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        /* 电影信息区域样式 */
+       .movie-info {
+            flex: 1;
+        }
+
+        /* 链接样式 */
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        /* 表单样式 */
+        form {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* 留言列表样式 */
+       .message-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+       .message-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+{% import "common/macro.html" as macro %}
+<body>
+    <div class="container">
+        <h1>电影投票</h1>
+        <ul>
+            {% for m in m_all %}
+            <li class="movie-card">
+                <div class="movie-poster">
+                    <img src="{{ url_for('static', filename=m.pic) }}" alt="{{ m.name }}封面">
+                </div>
+                <div class="movie-info">
+                    <p>电影名称：{{ m.name }}</p>
+                    <p>演员名称：{{ m.cast }}</p>
+                    <a href="/add_vote?id={{ m.id }}">给<strong>{{ m.name }}</strong>投票</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div style="background: #ffe; width: 100%; padding: 10px; margin: 20px 0; border: 1px solid #ddd; border-radius: 5px;">
+            {% for m in m_all %}
+            <p>电影名称：{{ m.name }}</p>
+            <p>电影得票：{{ m.votes }}</p>
+            {% endfor %}
+        </div>
+        <hr>
+        <form action="/" method="post">
+            {{ form.csrf_token }}
+            <label for="{{ form.content.id }}">{{ form.content.label }}</label><br>
+            {{ form.content }}
+            <button type="submit">{{ form.submit.label }}</button>
+        </form>
+        <h2>留言列表</h2>
+        <ul class="message-list">
+            {% for m in msg %}
+            <li class="message-item">
+                <p><strong>{{ m.time }}</strong>: {{ m.content }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>

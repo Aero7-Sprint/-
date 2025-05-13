@@ -1,0 +1,9 @@
+{# 该文件为宏文件，没有实际功能，只用于存放宏。
+类似于py文件里的函数文件。 #}
+{% macro inp(type_,name_,value_="") %}
+    <input type="{{type_}}" name="{{name_}}" value="{{value_}}">
+{% endmacro %}
+{% macro a_img(img_src) %}
+    <img src = "/static/{{ img_src }}"></a>
+    {# 创建一张点击后跳转到网址“a_href”的图片，图片内容为"img_src" #}
+{% endmacro %}
